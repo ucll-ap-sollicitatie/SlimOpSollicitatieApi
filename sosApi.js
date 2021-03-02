@@ -96,10 +96,12 @@ function register(email, password, username, confPass, voornaam) {
 }
 
 function getJobs(email) {
-    pool.query('select * from slimopsol.job where email =' + "'" + email + "'", (err, res) => {
-        jobs = res.rows
+    return new Promise((resolve, reject) => {
+        pool.query('select * from slimopsol.job where email =' + "'" + email + "'", (err, res) => {
+            jobs = res.rows
+            resolve(jobs)
+        })
     })
-    return jobs
 }
 
 function makeJob(email) {
@@ -233,7 +235,60 @@ app.get("/users/getAllVids",  bodyParser.text({type: '*/*'}), async (req, res) =
     res.end()
 })
 
+app.get("/users/getRecent", bodyParser.text({type: '*/*'}), async (req, res) => {
+    var body = JSON.parse(req.body)
+    console.log(body.email)
+    var email = body.email.toString()
+    try{
+        resul = await get2MostRecentVids(email)
+    }catch(e){
+        res.send("error")
+    }
+    res.send(resul)
+    res.end()
+})
 
+//update name to /getAllJobs?
+app.get("/user/getAll", bodyParser.text({type: '*/*'}), async (req, res) => {
+    var body = JSON.parse(req.body)
+    var email = body.email.toString()
+    try{
+        resul = await getJobs(email)
+    }catch(e){
+        res.send("error")
+    }
+    res.send(resul)
+    res.end()
+})
+
+app.get("/users/getfeedback", bodyParser.text({type: '*/*'}), async(req, res) =>{
+    var body = JSON.parse(req.body)
+    var vidname = body.vidname.toString()
+    try{
+        resul = await getFeedback(vidname)
+        console.log(resul)
+    }catch(e){
+        res.send("error")
+    }
+    res.send(resul)
+    res.end()
+})
+
+// uitgecomment omdat ik niet genoeg tijd heb om dit vandaag te testen, en de kans dat dit fout is is groter dan de get requests.
+
+// app.all("/users/setFeedback",  bodyParser.text({type: '*/*'}), async (req, res) => {
+//     var body = JSON.parse(req.body)
+//     var vid = body.video
+//     var feedback = JSON.stringify(body.feedback)
+
+//     try{
+//         await setFeedback(vid, feedback)
+//     }catch(e){
+//         console.log(e)
+//     }
+//     res.send("true")
+//     res.end()
+// })
 
 app.all("/users/login",  bodyParser.text({type: '*/*'}), async (req, res) => {
     let user = {}
@@ -258,8 +313,6 @@ app.all("/users/login",  bodyParser.text({type: '*/*'}), async (req, res) => {
     }
         res.send(user)
         res.end()
-
-
 })
 
 app.all("/users/register",  bodyParser.text({type: '*/*'}), async (req, res) => {
