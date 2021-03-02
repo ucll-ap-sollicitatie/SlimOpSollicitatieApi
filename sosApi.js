@@ -3,14 +3,21 @@ var cors = require('cors')
 var https = require('https');
 const app = express()
 var fs = require('fs');
-var privateKey  = fs.readFileSync('/etc/letsencrypt/live/slimopsollicitatie.xyz/privkey.pem', 'utf8');
-var certificate = fs.readFileSync('/etc/letsencrypt/live/slimopsollicitatie.xyz/fullchain.pem', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
-var httpsServer = https.createServer(credentials, app);
+var privateKey  = fs.readFileSync('server.key', 'utf8');
+var certificate = fs.readFileSync('server.key', 'utf8');
+
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+}, app)
+    .listen(3001, function () {
+        console.log('Example app listening on port 3000! Go to https://localhost:3000/')
+    })
+
 
 
 const port = 3001
-const hostname = '159.65.200.245'
+const hostname = 'localhost'
 
     , http = require('http')
     , path = require('path')
@@ -18,7 +25,7 @@ const hostname = '159.65.200.245'
 const bodyParser = require("express");
 
 app.use(cors())
-httpsServer.listen(port, hostname);
+
 
 let jobs = []
 
