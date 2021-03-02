@@ -1,6 +1,7 @@
 const express = require('express')
 var cors = require('cors')
 var https = require('https');
+var fs = require('fs');
 var privateKey  = fs.readFileSync('/etc/letsencrypt/live/slimopsollicitatie.xyz/privkey.pem', 'utf8');
 var certificate = fs.readFileSync('/etc/letsencrypt/live/slimopsollicitatie.xyz/fullchain.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
@@ -16,7 +17,7 @@ const port = 3001
 const bodyParser = require("express");
 
 app.use(cors())
-httpsServer.listen(8443);
+httpsServer.listen(port);
 
 let jobs = []
 
