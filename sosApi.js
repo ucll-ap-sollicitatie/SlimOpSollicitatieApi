@@ -262,3 +262,33 @@ app.all("/users/login",  bodyParser.text({type: '*/*'}), async (req, res) => {
 
 })
 
+app.all("/users/register",  bodyParser.text({type: '*/*'}), async (req, res) => {
+    let user = {}
+    console.log( "BODY:" + JSON.stringify(req.body))
+    var body = JSON.parse(req.body)
+
+    var email = body.email
+    console.log(email)
+
+    var pass = body.pass;
+    var un = body.username;
+    var cp = body.confPass;
+    var vn = body.vn;
+
+    console.log(pass)
+    console.log(cp)
+    console.log(un)
+    console.log(vn)
+    try{
+        user = await register(email, pass, un, cp, vn)
+        console.log(user)
+
+    } catch(e){
+        res.send("Error registering in")
+    }
+    res.send(user)
+    res.end()
+
+
+})
+
