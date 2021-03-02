@@ -7,8 +7,9 @@ var privateKey  = fs.readFileSync('server.key', 'utf8');
 var certificate = fs.readFileSync('server.key', 'utf8');
 
 https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
+    key: fs.readFileSync('myCA.key'),
+    cert: fs.readFileSync('myCA.pem'),
+    passphrase: 'Appel12345peer'
 }, app)
     .listen(3001, function () {
         console.log('Example app listening on port 3000! Go to https://localhost:3000/')
