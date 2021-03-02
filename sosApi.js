@@ -3,16 +3,15 @@ var cors = require('cors')
 var https = require('https');
 const app = express()
 var fs = require('fs');
-var privateKey  = fs.readFileSync('server.key', 'utf8');
-var certificate = fs.readFileSync('server.key', 'utf8');
+
 
 https.createServer({
-    key: fs.readFileSync('myCA.key'),
-    cert: fs.readFileSync('myCA.pem'),
-    passphrase: 'Appel12345peer'
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('slimopsollicitatie_xyz.crt'),
+    ca: fs.readFileSync('slimopsollicitatie_xyz.ca-bundle')
 }, app)
     .listen(3001, function () {
-        console.log('Example app listening on port 3000! Go to https://localhost:3000/')
+        console.log('Example app listening on port 3000! Go to https://slimopsollicitatie:3001/')
     })
 
 
