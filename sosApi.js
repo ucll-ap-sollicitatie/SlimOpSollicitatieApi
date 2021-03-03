@@ -264,7 +264,7 @@ app.get("/users/getRecent:email", bodyParser.text({type: '*/*'}), async (req, re
 })
 
 //update name to /getAllJobs?
-app.get("/user/getAll:user", bodyParser.text({type: '*/*'}), async (req, res) => {
+app.get("/users/getAll:user", bodyParser.text({type: '*/*'}), async (req, res) => {
     var email = req.query.user
     try{
         resul = await getJobs(email)
