@@ -274,7 +274,6 @@ app.get("/users/getAll", bodyParser.text({type: '*/*'}), async (req, res) => {
 })
 
 app.get("/users/getfeedback", bodyParser.text({type: '*/*'}), async(req, res) =>{
-
     var vidname = req.query.vid
     try{
         resul = await getFeedback(vidname)
