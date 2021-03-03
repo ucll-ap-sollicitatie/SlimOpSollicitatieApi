@@ -286,21 +286,25 @@ app.get("/users/getfeedback", bodyParser.text({type: '*/*'}), async(req, res) =>
     res.end()
 })
 
-// uitgecomment omdat ik niet genoeg tijd heb om dit vandaag te testen, en de kans dat dit fout is is groter dan de get requests.
+app.all("/users/setFeedback",  bodyParser.text({type: '*/*'}), async (req, res) => {
+    console.log( "BODY:" + JSON.stringify(req.body))
+    var body = JSON.parse(req.body)
 
-// app.all("/users/setFeedback",  bodyParser.text({type: '*/*'}), async (req, res) => {
-//     var body = JSON.parse(req.body)
-//     var vid = body.video
-//     var feedback = JSON.stringify(body.feedback)
+    var vname = body.video;
+    var feedback = body.feedback;
 
-//     try{
-//         await setFeedback(vid, feedback)
-//     }catch(e){
-//         console.log(e)
-//     }
-//     res.send("true")
-//     res.end()
-// })
+    console.log(vname)
+    console.log(feedback)
+    try{
+        await setFeedback(vname, feedback)
+        console.log("Saving the video feedback")
+    } catch(e){
+        res.send("Error saving the video feedack")
+    }
+    res.send("Ok")
+    res.end()
+
+})
 
 app.all("/users/login",  bodyParser.text({type: '*/*'}), async (req, res) => {
     let user = {}
@@ -443,6 +447,7 @@ app.all("/users/vidInDb",  bodyParser.text({type: '*/*'}), async (req, res) => {
     res.end()
 
 })
+
 
 app.post("/upload", upload.any() , async function (req, res) {
 })
