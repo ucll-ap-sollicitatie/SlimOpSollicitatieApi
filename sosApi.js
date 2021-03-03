@@ -94,7 +94,7 @@ function login(email, password) {
     })
 }
 
-function register(email, password, username, confPass, voornaam) {
+function register(email, password, confPass, voornaam) {
     return new Promise((resolve, reject) => {
 
         let hPassword = hashCode(password);
@@ -103,7 +103,7 @@ function register(email, password, username, confPass, voornaam) {
             resolve("Err")
             return "Err"
         }
-        console.log("registering user with email: " + email + " password: " + password + " username: " + username)
+        console.log("registering user with email: " + email + " password: " + password )
         pool.query('insert into slimopsol.users(email, hashedpassword, username, voornaam) values' + "('" + email + "' , '" + hPassword + "' , '" + voornaam + "', '" + voornaam + "')", (err, res) => {
             console.log("G")
             makeJob(email)
