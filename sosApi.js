@@ -94,7 +94,7 @@ function login(email, password) {
     })
 }
 
-function register(email, password, confPass, voornaam) {
+function register(email, password, username, confPass, voornaam) {
     return new Promise((resolve, reject) => {
 
         let hPassword = hashCode(password);
@@ -342,7 +342,7 @@ app.all("/users/register",  bodyParser.text({type: '*/*'}), async (req, res) => 
     console.log(email)
 
     var pass = body.pass;
-    var un = body.username;
+    var un = body.un;
     var cp = body.confPass;
     var vn = body.vn;
 
@@ -351,7 +351,7 @@ app.all("/users/register",  bodyParser.text({type: '*/*'}), async (req, res) => 
     console.log(un)
     console.log(vn)
     try{
-        user = await register(email, pass, cp, vn)
+        user = await register(email, pass, un, cp, vn)
         console.log(user)
 
     } catch(e){
