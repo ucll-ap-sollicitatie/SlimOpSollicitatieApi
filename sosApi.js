@@ -332,10 +332,31 @@ app.all("/users/deletejob",  bodyParser.text({type: '*/*'}), async (req, res) =>
     } catch(e){
         res.send("Error deleting the job")
     }
-    res.send("OK")
+    res.send(true)
     res.end()
 
 })
+
+app.all("/users/updateUsername",  bodyParser.text({type: '*/*'}), async (req, res) => {
+    var body = JSON.parse(req.body)
+    console.log(body.email)
+    var email = body.email.toString()
+    var un = body.username.toString()
+    var pass = body.password.toString()
+
+    try {
+        checkpass = login(email, pass)
+        console.log(resul)
+    } catch(e) {
+        res.send("Error, Wrong password/email")
+    } if(checkpass.email){
+        await updateUsername(un, email)
+    } else console.log("Error, Wrong password/email")
+
+    res.send("Username updated")
+    res.end()
+})
+
 
 
 
