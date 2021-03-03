@@ -29,7 +29,7 @@ const bodyParser = require("express");
 
 app.use(cors())
 
-const UPLOAD_FILES_DIR = "/uploads";
+const UPLOAD_FILES_DIR = "/var/www/afstudeer/SlimOpSollicitatieApi/uploads";
 const storage = multer.diskStorage({
     destination(req, file, cb) {
         cb(null, UPLOAD_FILES_DIR);
