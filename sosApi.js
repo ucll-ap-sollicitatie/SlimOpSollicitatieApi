@@ -218,7 +218,6 @@ app.get("/", (req, res) => {
 })
 
 
-
 app.get("/users/getAllVids",  bodyParser.text({type: '*/*'}), async (req, res) => {
     var body = JSON.parse(req.body)
     console.log(body.email)
@@ -284,11 +283,59 @@ app.all("/users/register",  bodyParser.text({type: '*/*'}), async (req, res) => 
         console.log(user)
 
     } catch(e){
-        res.send("Error registering in")
+        res.send("Error registering")
     }
     res.send(user)
     res.end()
 
 
 })
+
+app.all("/users/addJob",  bodyParser.text({type: '*/*'}), async (req, res) => {
+    console.log( "BODY:" + JSON.stringify(req.body))
+    var body = JSON.parse(req.body)
+
+    var titel = body.titel;
+    var inter = body.inter;
+    var tech = body.tech;
+    var email = body.email;
+
+    console.log(titel)
+    console.log(inter)
+    console.log(tech)
+    console.log(email)
+    try{
+        await makeNewJob(titel, inter, tech, email)
+        console.log("Making a new job: " + titel,  + " " + inter,   + " " + tech, + " " +  email)
+
+    } catch(e){
+        res.send("Error Making the job")
+    }
+    res.send("OK")
+    res.end()
+
+})
+
+app.all("/users/deletejob",  bodyParser.text({type: '*/*'}), async (req, res) => {
+    console.log( "BODY:" + JSON.stringify(req.body))
+    var body = JSON.parse(req.body)
+
+    var titel = body.titel;
+    var email = body.email;
+
+    console.log(titel)
+    console.log(email)
+    try{
+        await deleteJob(titel, email)
+        console.log("Deleting the job: " + titel + " From user: " +  email)
+
+    } catch(e){
+        res.send("Error deleting the job")
+    }
+    res.send("OK")
+    res.end()
+
+})
+
+
 
