@@ -239,7 +239,7 @@ app.get("/", (req, res) => {
 
 
 app.all("/users/getvidInDb",  bodyParser.text({type: '*/*'}), async (req, res) => {
-    var email = req.params("email")
+    var email = req.query.email
     try {
         resul =  await getAllVidsFromUser(email)
         console.log(resul)
