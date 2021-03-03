@@ -354,7 +354,7 @@ app.all("/users/register",  bodyParser.text({type: '*/*'}), async (req, res) => 
     } catch(e){
         res.send("Error registering")
     }
-    res.send(user)
+    res.send(true)
     res.end()
 })
 
@@ -378,7 +378,7 @@ app.all("/users/addJob",  bodyParser.text({type: '*/*'}), async (req, res) => {
     } catch(e){
         res.send("Error Making the job")
     }
-    res.send("OK")
+    res.send(true)
     res.end()
 
 })
@@ -421,7 +421,7 @@ app.all("/users/updateUsername",  bodyParser.text({type: '*/*'}), async (req, re
         await updateUsername(un, email)
     } else console.log("Error, Wrong password/email")
 
-    res.send("Username updated")
+    res.send(true)
     res.end()
 })
 
