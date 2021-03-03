@@ -238,7 +238,7 @@ app.get("/", (req, res) => {
 })
 
 
-app.get("/users/getAllVids",  bodyParser.text({type: '*/*'}), async (req, res) => {
+app.get("/users/getvidInDb",  bodyParser.text({type: '*/*'}), async (req, res) => {
     var body = JSON.parse(req.body)
     console.log(body.email)
     var email = body.email.toString()
