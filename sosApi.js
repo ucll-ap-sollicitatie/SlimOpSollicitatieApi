@@ -242,12 +242,11 @@ app.all("/users/getvidInDb",  bodyParser.text({type: '*/*'}), async (req, res) =
     var email = req.query.email
     try {
         resul =  await getAllVidsFromUser(email)
-        console.log(resul)
+        //* console.log(resul)
     } catch(e) {
         res.send("Error")
     }
-    res.send(Array.from(resul))
-    console.log(Array.from(resul))
+    res.send(resul)
     res.end()
 })
 
