@@ -348,7 +348,6 @@ app.all("/users/updateUsername",  bodyParser.text({type: '*/*'}), async (req, re
         checkpass = login(email, pass)
         console.log(resul)
     } catch(e) {
-        res.send("Error, Wrong password/email")
     } if(checkpass.email){
         await updateUsername(un, email)
     } else console.log("Error, Wrong password/email")
