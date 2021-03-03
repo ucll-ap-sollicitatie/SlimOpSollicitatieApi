@@ -358,6 +358,28 @@ app.all("/users/updateUsername",  bodyParser.text({type: '*/*'}), async (req, re
     res.end()
 })
 
+app.all("/users/vidInDb",  bodyParser.text({type: '*/*'}), async (req, res) => {
+    console.log( "BODY:" + JSON.stringify(req.body))
+    var body = JSON.parse(req.body)
+
+    var name = body.name;
+    var email = body.email
+    var timestamps = body.timestamps;
+
+    console.log(name)
+    console.log(email)
+    console.log(timestamps)
+    try{
+        await videoInDb(name, email, timestamps)
+        console.log("Saving the video")
+    } catch(e){
+        res.send("Error saving the video")
+    }
+    res.send("Ok")
+    res.end()
+
+})
+
 
 
 
