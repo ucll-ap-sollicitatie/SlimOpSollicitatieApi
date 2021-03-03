@@ -453,7 +453,7 @@ app.get("/video/", function(req, res){
         res.status(400).send("Requires header range")
     }
 
-    const videoPath = "./var/www/afstudeer/SlimOpSollicitatieApi/uploads/" + req.query.vid
+    const videoPath = "/var/www/afstudeer/SlimOpSollicitatieApi/uploads/" + req.query.vid
     const videoSiza = fs.statSync(videoPath).size
 
     const chunksize = 10**7
