@@ -246,7 +246,7 @@ app.all("/users/getvidInDb",  bodyParser.text({type: '*/*'}), async (req, res) =
     } catch(e) {
         res.send("Error")
     }
-    res.send((JSON.parse(resul)))
+    res.send(resul.toArray())
     res.end()
 })
 
