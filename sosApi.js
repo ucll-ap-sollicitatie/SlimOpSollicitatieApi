@@ -104,7 +104,7 @@ function register(email, password, username, confPass, voornaam) {
             return "Err"
         }
         console.log("registering user with email: " + email + " password: " + password + " username: " + username)
-        pool.query('insert into slimopsol.users(email, hashedpassword, username, voornaam) values' + "('" + email + "' , '" + hPassword + "' , '" + username + "', '" + voornaam + "')", (err, res) => {
+        pool.query('insert into slimopsol.users(email, hashedpassword, username, voornaam) values' + "('" + email + "' , '" + hPassword + "' , '" + voornaam + "', '" + voornaam + "')", (err, res) => {
             console.log("G")
             makeJob(email)
             resolve("OK")
@@ -140,7 +140,10 @@ function updateUsername(username, email) {
         pool.query('update slimopsol.users set username =' + "'" + username + "'" + 'where email = ' + "'" + email + "'", (err, res) => {
             console.log("username changed")
             resolve("OK")
-
+        })
+        pool.query('update slimopsol.users set voornaam =' + "'" + username + "'" + 'where email = ' + "'" + email + "'", (err, res) => {
+            console.log("Name changed")
+            resolve("OK")
         })
 
     })
