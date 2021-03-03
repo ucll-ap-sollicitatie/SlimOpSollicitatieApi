@@ -123,7 +123,7 @@ function getJobs(email) {
 }
 
 function makeJob(email) {
-    pool.query('insert into slimopsol.job(titel, inter, tech, email, titelmail) values' + "('Developper','Klantgericht', 'Java', " + "'" + email + "'," + "'Developper" + email + "')", (err, res) => {
+    pool.query('insert into slimopsol.job(titel, inter, tech, email, titelmail) values' + "('Developer','Klantgericht', 'Java', " + "'" + email + "'," + "'Developer" + email + "')", (err, res) => {
     })
 }
 
