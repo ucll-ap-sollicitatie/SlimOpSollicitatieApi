@@ -447,13 +447,13 @@ app.all("/users/vidInDb",  bodyParser.text({type: '*/*'}), async (req, res) => {
 app.post("/upload", upload.any() , async function (req, res) {
 })
 
-app.get("/video/:name", function(req, res){
+app.get("/video/", function(req, res){
     const range = req.headers.range;
     if(!range){
         res.status(400).send("Requires header range")
     }
 
-    const videoPath = "./var/www/afstudeer/SlimOpSollicitatieApi/uploads/" + req.params.name
+    const videoPath = "./var/www/afstudeer/SlimOpSollicitatieApi/uploads/" + req.query.vid
     const videoSiza = fs.statSync(videoPath).size
 
     const chunksize = 10**7
