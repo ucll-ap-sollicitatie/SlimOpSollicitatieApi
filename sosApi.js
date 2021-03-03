@@ -343,9 +343,11 @@ app.all("/users/updateUsername",  bodyParser.text({type: '*/*'}), async (req, re
     var email = body.email.toString()
     var un = body.username.toString()
     var pass = body.password.toString()
+    console.log(pass)
+    console.log(un)
 
     try {
-        checkpass = login(email, pass)
+        checkpass = await login(email, pass)
         console.log(resul)
     } catch(e) {
     } if(checkpass.email){
