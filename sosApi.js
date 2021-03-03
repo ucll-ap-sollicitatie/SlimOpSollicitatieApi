@@ -3,7 +3,10 @@ var cors = require('cors')
 var https = require('https');
 const app = express()
 var fs = require('fs');
+const dotenv = require('dotenv');
+const multer = require('multer')
 
+dotenv.config()
 
 https.createServer({
     key: fs.readFileSync('server.key'),
@@ -25,6 +28,21 @@ const hostname = 'localhost'
 const bodyParser = require("express");
 
 app.use(cors())
+
+const UPLOAD_FILES_DIR = "/uploads";
+const storage = multer.diskStorage({
+    destination(req, file, cb) {
+        cb(null, UPLOAD_FILES_DIR);
+    },
+    filename(req, file = {}, cb) {
+        const {originalname: originalName} = file;
+        let ogName = originalName.split('.')[0]
+        console.log(originalName)
+        cb(null, `${originalName}`);
+    }
+});
+
+const upload = multer({storage});
 
 
 let jobs = []
@@ -380,6 +398,25 @@ app.all("/users/vidInDb",  bodyParser.text({type: '*/*'}), async (req, res) => {
 
 })
 
+app.post("/upload", upload.any() , async function (req, res) {
+})
 
+app.get("/video/:name", function(req, res){
+    const range = req.headers.range;
+    if(!range){
+        res.status(400).send("Requires header range")
+    }
+
+    const videoPath = "./uploads/" + req.params.name
+    const videoSiza = fs.statSync(videoPath).size
+
+    const chunksize = 10**7
+    const start = Number(range.replace(/\D/g,""))
+    const end = Math.min(start + chunksize, videoSiza -1 )
+
+    const videoStream = fs.createReadStream(videoPath, {start, end})
+    videoStream.pipe(res)
+
+})
 
 
