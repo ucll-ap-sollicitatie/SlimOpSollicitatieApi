@@ -448,20 +448,13 @@ app.post("/upload", upload.any() , async function (req, res) {
 })
 
 app.get("/video/", function(req, res){
-    const range = req.headers.range;
-    if(!range){
-        res.status(400).send("Requires header range")
-    }
+
 
     const videoPath = "/var/www/afstudeer/SlimOpSollicitatieApi/uploads/" + req.query.vid
-    const videoSiza = fs.statSync(videoPath).size
 
-    const chunksize = 10**7
-    console.log(range)
-    const start = Number(range.replace(/\D/g,""))
-    const end = Math.min(start + chunksize, videoSiza -1 )
 
-    const videoStream = fs.createReadStream(videoPath, {start, end})
+
+    const videoStream = fs.createReadStream(videoPath)
     videoStream.pipe(res)
 
 })
