@@ -457,6 +457,7 @@ app.get("/video/", function(req, res){
     const videoSiza = fs.statSync(videoPath).size
 
     const chunksize = 10**7
+    console.log(range)
     const start = Number(range.replace(/\D/g,""))
     const end = Math.min(start + chunksize, videoSiza -1 )
 
