@@ -305,8 +305,8 @@ app.all("/users/addJob",  bodyParser.text({type: '*/*'}), async (req, res) => {
     console.log(tech)
     console.log(email)
     try{
-        await makeNewJob(titel, inter, tech, email)
-        console.log("Making a new job: " + titel,  + " " + inter,   + " " + tech, + " " +  email)
+        await makeNewJob(titel, inter, tech, null, email)
+        console.log("Making a new job: " + titel  + " " + inter + " " + tech + " " +  email)
 
     } catch(e){
         res.send("Error Making the job")
