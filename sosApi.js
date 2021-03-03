@@ -239,10 +239,7 @@ app.get("/", (req, res) => {
 
 
 app.all("/users/getvidInDb",  bodyParser.text({type: '*/*'}), async (req, res) => {
-    var body = JSON.parse(req.body)
-    console.log(body)
-    console.log(body.email)
-    var email = body.email.toString()
+    var email = req.params("email")
     try {
         resul =  await getAllVidsFromUser(email)
         console.log(resul)
@@ -254,7 +251,9 @@ app.all("/users/getvidInDb",  bodyParser.text({type: '*/*'}), async (req, res) =
 })
 
 app.get("/users/getRecent:email", bodyParser.text({type: '*/*'}), async (req, res) => {
-    var email = req.param("email")
+    var body = JSON.parse(req.body)
+    console.log(body.email)
+    var email = body.email.toString()
     try{
         resul = await get2MostRecentVids(email)
     }catch(e){
