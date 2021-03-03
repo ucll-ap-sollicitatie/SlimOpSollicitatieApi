@@ -291,7 +291,7 @@ app.all("/users/setFeedback",  bodyParser.text({type: '*/*'}), async (req, res) 
     var body = JSON.parse(req.body)
 
     var vname = body.video;
-    var feedback = body.feedback
+    var feedback = JSON.stringify(body.feedback)
 
     console.log(vname)
     console.log(feedback)
