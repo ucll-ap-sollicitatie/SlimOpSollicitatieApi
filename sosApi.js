@@ -250,7 +250,7 @@ app.all("/users/getvidInDb",  bodyParser.text({type: '*/*'}), async (req, res) =
     res.end()
 })
 
-app.get("/users/getRecent:email", bodyParser.text({type: '*/*'}), async (req, res) => {
+app.get("/users/getRecent", bodyParser.text({type: '*/*'}), async (req, res) => {
     var body = JSON.parse(req.body)
     console.log(body.email)
     var email = body.email.toString()
@@ -264,7 +264,7 @@ app.get("/users/getRecent:email", bodyParser.text({type: '*/*'}), async (req, re
 })
 
 //update name to /getAllJobs?
-app.get("/users/getAll:user", bodyParser.text({type: '*/*'}), async (req, res) => {
+app.get("/users/getAll", bodyParser.text({type: '*/*'}), async (req, res) => {
     var email = req.query.user
     try{
         resul = await getJobs(email)
